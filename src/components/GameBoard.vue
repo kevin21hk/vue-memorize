@@ -1,9 +1,11 @@
 <template>
 <div class='board'>
 <h1>Memorize</h1>
-<button @click='start'>
+<div class="btn-container">
+<button id="btnStart" class="btnStart" @click='start'>
     Start
 </button>
+</div>
 <div class = "card-container" v-if="showCards">
     <template v-for="card in deck.slice(0,5)" :key="card.id">
     <CardDisplay 
@@ -98,21 +100,43 @@ for (let i = 0; i < rows; i++) {
 
 <style scoped>
 .board {
-    border-width:1px;
-    border-style:solid;
-    width:80vw;
-    height:80vh;
-    display:flex;
-    flex-direction:column;
+background-color:rgb(3, 65, 6);
+color: yellow;
+width:80vw;
+height: auto;
+display:flex;
+border-style: solid;
+border-width:5px;
+border-color:rgb(27, 160, 6);
+margin-bottom: 10px;
+border-radius:10px;
+flex-direction:column;
 }
 .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+    display:flex;
+    flex-wrap:wrap;
     border-style:dashed;
     width: 60vw;
-    height: 40vh;
-    display:flex;
+    height: auto;
     justify-content:center;
     margin: auto;
-    padding-top:20px;
+    padding:20px;
+    margin-bottom: 10px;
+    border-radius:10px;
+}
+
+.btn-container {
+display:flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+}
+
+.btnStart{
+margin:6px;
 }
 
 </style>
