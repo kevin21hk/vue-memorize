@@ -23,8 +23,7 @@ export default {
   margin-top: 60px;
   border-style:solid;
   display:flex;
-justify-content:center;
-text-align:center;
-
+  justify-content:center;
+  text-align:center;
 }
 </style>
