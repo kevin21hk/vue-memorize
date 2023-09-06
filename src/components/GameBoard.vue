@@ -4,8 +4,13 @@
 <button @click='start'>
     Start
 </button>
-<div class = "card-container">
-    <CardDisplay :SpriteX="this.SpriteX" :SpriteY="this.SpriteY"></CardDisplay>
+<div class = "card-container" v-if="showCards">
+    <template v-for="card in deck.slice(0,5)" :key="card.id">
+    <CardDisplay 
+        :SpriteX="card.spriteX"    
+        :SpriteY="card.spriteY"
+        ></CardDisplay>
+    </template>
 </div>
 </div>
 </template>
@@ -19,7 +24,8 @@ data() {
         deck : [],
         deck2D : [],
         SpriteX : 0,
-        SpriteY : 0
+        SpriteY : 0,
+        showCards: false,
     }
 },
 components:{
@@ -36,8 +42,9 @@ initiateNewDeck() {
 
 const suits = ['Spades','Clubs','Hearts','Diamonds']
 const ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
-const cardX = 71;
-const cardY = 96;
+const cardX = 71
+const cardY = 96
+let id = 1
 
 for (let suitIndex = 0; suitIndex < suits.length; suitIndex++){
     for (let rankIndex = 0; rankIndex < ranks.length; rankIndex++){
@@ -46,41 +53,38 @@ for (let suitIndex = 0; suitIndex < suits.length; suitIndex++){
         suit : suits[suitIndex],
         rank : ranks[rankIndex],
         value : rankIndex + 1,
+        id,
         spriteX : rankIndex * cardX,
         spriteY : suitIndex * cardY
     }
     // console.log(`Card value: ${card.value}, Suit index: ${suitIndex}, Rank index: ${rankIndex}, spriteX: ${card.spriteX}, spriteY: ${card.spriteY}`)
     this.deck.push(card)
+    id++
     }
 }
-    this.createDeck2D();
+    this.createDeck2D()
 }   ,
 shuffle(){
     for (let i = this.deck.length - 1; i > 0; i--){
     const rand = Math.floor(Math.random() * (i+1));
     [this.deck[i], this.deck[rand]] = [this.deck[rand], this.deck[i]];
     }
-    this.createDeck2D();
     console.log(`Deck Shuffled ${JSON.stringify(this.deck2D)}`)
     console.log(`Card value: ${this.deck2D[0][0].value}, spriteX: ${this.deck2D[0][0].spriteX}, spriteY: ${this.deck2D[0][0].spriteY}`)
 }
 ,
 start(){
-    this.deck = []; 
-    this.deck2D = [];
-    this.initiateNewDeck();
-    this.shuffle();
-    this.SpriteX = this.deck2D[0][0].spriteX
-    this.SpriteY = this.deck2D[0][0].spriteY
- // display first indexes from deck for the time being
-    console.log(this.deck2D[0][0])
-
+    this.deck = []
+    this.deck2D = []
+    this.initiateNewDeck()
+    this.shuffle()
+    this.showCards = true
 },
 createDeck2D()
 {
  //create 2d array 4 rows 13 columns
-    const rows = 4;
-    const cols = 13;
+    const rows = 4
+    const cols = 13
     this.deck2D = [] 
 
 for (let i = 0; i < rows; i++) {
