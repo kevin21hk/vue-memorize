@@ -26,10 +26,12 @@ return{
 
 <style>
 .card {
-background-image: url('../assets/card-sprites.png');
-background-position: 0 0;
-width: 71px;
-height:96px;
-border-radius:3px;
+    background-image: url('../assets/card-sprites.png');
+    background-position: 0 0;
+    width: 71px;
+    height:96px;
+    border-radius:3px;
+    margin-right:10px;
+    margin-left:10px;
 }
 </style>
